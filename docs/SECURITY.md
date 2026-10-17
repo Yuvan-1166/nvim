@@ -1,0 +1,102 @@
+# SECURITY.md — Office / Workplace Security Posture
+
+This config is intended for **office/workplace use**. The guiding rule: **nothing about the work should leak out of the machine unless explicitly required, and every dependency should be pinned and reviewable.** This doc is the security reference for the Neovim config and the Java toolchain it provisions.
+
+Companion docs: [`PLAN.md`](PLAN.md) (Phase 5), [`JAVA.md`](JAVA.md) (Java tooling), [`../AGENTS.md`](../AGENTS.md) (policy).
+
+---
+
+## 1. Threat model (what we care about)
+
+| Vector | Risk | Mitigation |
+|---|---|---|
+| **Telemetry / rich presence** | Plugins phoning home with file/project names (e.g., Discord RPC). | Remove/neutralize `cord.lua`. No cloud plugins without review. |
+| **Cloud AI** | Code sent to third-party servers (Copilot, cloud LSPs). | Remove Copilot; only add AI with explicit approval + local/enterprise endpoint. |
+| **Browser bridge** | Buffers transmitted via browser extension (FireNvim). | Review; disable unless proven local-only. |
+| **Supply chain (plugins)** | Malicious/compromised git plugin, or unpinned update pulls bad code. | lazy.nvim **lockfile pinning**; review maintainers; avoid rarely-used plugins; vendor critical ones if needed. |
+| **Supply chain (Java deps)** | Known CVEs in Maven/Gradle dependencies. | OWASP Dependency-Check, Trivy/Grype, Dependabot/Renovate-style updates. |
+| **Vulnerable code (Java)** | Security bugs in source (injection, unsafe deserialization, etc.). | SpotBugs + FindSecBugs, Semgrep, SonarLint, CodeQL if available. |
+| **Secrets in repo/config** | API keys, tokens, keystore passwords committed. | `gitleaks`/`git-secrets` pre-commit; never store secrets in config; `.gitignore`. |
+| **Auto-execution of untrusted code** | Neovim `exrc`/modeline/plugins executing code from the opened project. | Disable `exrc`; restrict modelines; review `.nvim.lua` usage. |
+| **Outbound in CI/build** | Build tools phoning home or pulling unpinned artifacts. | Mirror/proxy Maven/Gradle; pin versions; audit `settings.xml`/`init.gradle`. |
+| **Compromised terminal tools** | Decompilers/CLIs from untrusted sources. | Download from official releases, verify hashes, keep in a pinned dir. |
+
+---
+
+## 2. Current review status (baseline)
+
+| Plugin / feature | File | Status | Action |
+|---|---|---|---|
+| Copilot + CopilotChat | `plugins/copilot.lua` | ⚠️ Sends code to cloud | **On hold → remove** (Phase 0) |
+| Jupyter notebooks | `plugins/jupyter.lua` | ⚠️ Local but unused | **On hold → remove** (Phase 0) |
+| Discord RPC | `plugins/cord.lua` | ⚠️ External network, leaks context | **Review** — recommend disable/remove for office |
+| FireNvim | `plugins/firenvim.lua` | ⚠️ Browser bridge | **Review** — confirm no buffer egress; disable if unproven |
+| All other plugins | rest of `lua/yuvan/plugins/` | Pinned via `lazy-lock.json` | Keep; re-review on each update |
+
+> Note: `vim.deprecate` is currently stubbed in `core/options.lua`. This is not a security hole by itself, but it hides deprecation warnings that could mask insecure/removed behaviors. Track as tech-debt (PLAN Phase 7), do not extend it.
+
+---
+
+## 3. Neovim runtime hardening checklist
+
+- [ ] Ensure `exrc` is **disabled** (`vim.o.exrc = false`), so Neovim does not auto-run project-local config.
+- [ ] Review modeline handling; keep `modeline` enabled but ensure untrusted files aren't auto-opened with plugins attached.
+- [ ] Keep `shada`/undo history on a local, non-shared path; don't sync secrets in shada.
+- [ ] Avoid `:!` shell commands built from untrusted file paths (current `:Comp` uses fixed path — keep it fixed).
+- [ ] `clipboard` = `unnamedplus` is fine locally; be aware copy goes to system clipboard (X11/Wayland) — acceptable in office, just don't paste secrets into shared terminals.
+- [ ] Do not `git pull`/update plugins while working on sensitive code without reviewing the changelog/lockfile diff.
+
+---
+
+## 4. Plugin supply-chain policy
+
+1. **Pinned commits** — `lazy-lock.json` is the single source of truth for versions; commit it.
+2. **Review before adding** — check maintainer, stars/activity, `build`/`install` hooks (these run arbitrary commands), and any network calls.
+3. **Prefer mainstream** — `nvim-dap`, `nvim-treesitter`, `telescope`, `mason`, `conform`, `nvim-jdtls`/`nvim-java` (well-known).
+4. **No anonymous `build` scripts** without inspection — e.g. `cord.lua` uses `build = "./build || .\\build"`; inspect before trusting.
+5. **Update cadence** — update deliberately (not auto), read `:Lazy` changelog, re-run `:checkhealth`.
+
+---
+
+## 5. Java dependency & code scanning (for the projects you edit)
+
+Install and wire these in Phase 5 (see `JAVA.md` §9):
+- **Dependency CVEs:** OWASP Dependency-Check (`dependency-check-maven`/`dependency-check-gradle`), **Trivy** / **Grype** on JARs/images.
+- **SAST (Java):** SpotBugs + **FindSecBugs**, **Semgrep** (Java security rules), optional SonarLint (local/offline).
+- **SBOM:** CycloneDX/SPDX generation for releases.
+- **Pinning:** enforce Maven/Gradle wrapper (`mvnw`/`gradlew`) + lock/verify checksums where supported.
+
+> These run on *project code*, not on the Neovim config, but the config should provision them (mason/tool installer) so they're available inside the editor/CI.
+
+---
+
+## 6. Secrets management
+
+- Never commit tokens, API keys, keystores, `application-*.properties` with credentials, or `.env`.
+- Use a secret manager or environment variables; for Spring, externalize secrets (Vault/env) and keep only `application-*.example.yml` in git.
+- Add pre-commit secret scanning: `gitleaks detect` or `git-secrets` (opt-in, documented so it doesn't block unrelated work).
+- Rotate anything that was ever committed.
+
+---
+
+## 7. Network / air-gapped considerations
+
+- Office networks may block `github.com`, Maven Central, Eclipse update sites. Provide mirror/proxy config:
+  - Maven: `~/.m2/settings.xml` with internal mirror.
+  - Gradle: `init.gradle` / internal repo.
+  - mason: point to internal registry or pre-install LSP/decompiler jars and reference them by path (avoid mason download at runtime).
+- Any plugin that downloads binaries at install time must be pinned and, ideally, pre-vendored.
+
+---
+
+## 8. Reporting / change log
+
+Any change to security-relevant plugins (add/remove/disabling) must be recorded here **and** in `docs/IMPLEMENTED.md`:
+
+| Date | Item | Change | Reason |
+|---|---|---|---|
+| (baseline) | copilot.lua, jupyter.lua | marked on-hold for removal | Office IP/telemetry concerns |
+| (baseline) | cord.lua | flagged | Discord presence may leak context |
+| (baseline) | firenvim.lua | flagged | Browser bridge egress risk |
+
+When Phase 0 is executed, move these to a "resolved" section and note the outcome.
