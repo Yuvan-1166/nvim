@@ -6,15 +6,17 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ---
 
-## Phase 0 — Removals & security triage  `! On hold`
+## Phase 0 — Removals & security triage  `[x] Done`
 
-- [ ] Delete `lua/yuvan/plugins/jupyter.lua` (jupytext, iron.nvim, NotebookNavigator, mini.comment)
-- [ ] Delete `lua/yuvan/plugins/copilot.lua` (copilot.vim, CopilotChat.nvim)
-- [ ] Remove Copilot Chat keymaps from `core/keymaps.lua`
-- [ ] Decide: keep / disable / remove `cord.lua` (Discord) — security
-- [ ] Decide: keep / disable / remove `firenvim.lua` — security
-- [ ] Run `:Lazy sync` to prune orphaned plugins from lockfile
-- [ ] Update `IMPLEMENTED.md` + `SECURITY.md` (move flagged → resolved)
+- [x] Delete `lua/yuvan/plugins/jupyter.lua` (jupytext, iron.nvim, NotebookNavigator, mini.comment)
+- [x] Delete `lua/yuvan/plugins/copilot.lua` (copilot.vim, CopilotChat.nvim)
+- [x] Remove Copilot Chat keymaps from `core/keymaps.lua`
+- [x] Delete `cord.lua` (Discord) — external leak removed
+- [x] `firenvim.lua` — reviewed, **kept** (local loopback, low risk); flagged in SECURITY.md
+- [x] Run `:Lazy clean` — lockfile pruned 47 → 38 entries
+- [x] Bug fixes: `<C-hjkl>` conflict (removed vim-tmux-navigator), `vim.deprecate` stub removed, lualine theme → auto
+- [x] Dead-code cleanup (colorscheme/lualine/nvim-tree/alpha/options)
+- [x] Update `IMPLEMENTED.md` + `SECURITY.md` (flagged → resolved)
 
 ---
 

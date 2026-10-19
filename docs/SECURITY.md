@@ -27,13 +27,13 @@ Companion docs: [`PLAN.md`](PLAN.md) (Phase 5), [`JAVA.md`](JAVA.md) (Java tooli
 
 | Plugin / feature | File | Status | Action |
 |---|---|---|---|
-| Copilot + CopilotChat | `plugins/copilot.lua` | ⚠️ Sends code to cloud | **On hold → remove** (Phase 0) |
-| Jupyter notebooks | `plugins/jupyter.lua` | ⚠️ Local but unused | **On hold → remove** (Phase 0) |
-| Discord RPC | `plugins/cord.lua` | ⚠️ External network, leaks context | **Review** — recommend disable/remove for office |
-| FireNvim | `plugins/firenvim.lua` | ⚠️ Browser bridge | **Review** — confirm no buffer egress; disable if unproven |
-| All other plugins | rest of `lua/yuvan/plugins/` | Pinned via `lazy-lock.json` | Keep; re-review on each update |
+| Copilot + CopilotChat | `plugins/copilot.lua` | 🟢 **Removed** (Phase 0) | No code leaves machine via Copilot now |
+| Jupyter notebooks | `plugins/jupyter.lua` | 🟢 **Removed** (Phase 0) | Unused; reduced surface |
+| Discord RPC | `plugins/cord.lua` | 🟢 **Removed** (Phase 0) | External leak eliminated |
+| FireNvim | `plugins/firenvim.lua` | 🟡 **Kept / reviewed** | Local loopback by default; no egress unless reconfigured. Low risk. Remove on request. |
+| All other plugins | rest of `lua/yuvan/plugins/` | Pinned via `lazy-lock.json` (38 entries) | Keep; re-review on each update |
 
-> Note: `vim.deprecate` is currently stubbed in `core/options.lua`. This is not a security hole by itself, but it hides deprecation warnings that could mask insecure/removed behaviors. Track as tech-debt (PLAN Phase 7), do not extend it.
+> **Tech-debt note:** `vim.deprecate` stub has been **removed** (it was hiding deprecation warnings). 0 deprecation warnings now surface; if any appear later, fix the underlying call rather than re-stubbing.
 
 ---
 
@@ -95,8 +95,10 @@ Any change to security-relevant plugins (add/remove/disabling) must be recorded 
 
 | Date | Item | Change | Reason |
 |---|---|---|---|
-| (baseline) | copilot.lua, jupyter.lua | marked on-hold for removal | Office IP/telemetry concerns |
-| (baseline) | cord.lua | flagged | Discord presence may leak context |
-| (baseline) | firenvim.lua | flagged | Browser bridge egress risk |
-
-When Phase 0 is executed, move these to a "resolved" section and note the outcome.
+| Phase 0 | copilot.lua, CopilotChat keymaps | **Removed** | Office IP/telemetry — no cloud code egress |
+| Phase 0 | cord.lua (Discord) | **Removed** | Rich presence leaked project/file context externally |
+| Phase 0 | jupyter.lua | **Removed** | Unused; reduced attack/complexity surface |
+| Phase 0 | neodev.nvim | **Removed** | Deprecated; functionality in lua_ls |
+| Phase 0 | vim-deprecate stub | **Removed** | Hid deprecation warnings (0 now) |
+| Phase 0 | firenvim.lua | **Kept, reviewed** | Local loopback only; low risk — remove on request |
+| (baseline) | firenvim.lua | flagged then reviewed | Browser bridge egress risk — assessed low (loopback) |

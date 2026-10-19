@@ -4,7 +4,9 @@ return {
   config = function()
     local smart_splits = require("smart-splits")
     smart_splits.setup({
-      default_amount = 5,
+      resize = {
+        amount = 5,
+      },
     })
     local keymap = vim.keymap
 

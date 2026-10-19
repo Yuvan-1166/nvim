@@ -27,8 +27,3 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 -- buffer management
 keymap.set("n", "<leader>bp", ":bprev<CR>", { desc = "Switch to previous buffer" })
 keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Switch to next buffer" })
-
--- Copilot Chat bindings
-vim.keymap.set("n", "<leader>cc", ":CopilotChatToggle<CR>", { desc = "Toggle Copilot Chat" })
-vim.keymap.set("i", "<C-Enter>", "<Esc>:CopilotChatSend<CR>", { desc = "Send to Copilot Chat" })
-vim.keymap.set("i", "<C-c>", "<Esc>:CopilotChatClose<CR>", { desc = "Close Copilot Chat" })

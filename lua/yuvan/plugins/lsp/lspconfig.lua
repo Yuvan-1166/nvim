@@ -4,20 +4,16 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
-    { "folke/neodev.nvim", opts = {} },
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
   },
   config = function()
-    -- Safely import lspconfig
-    local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
-    if not lspconfig_ok then
-      vim.notify("lspconfig not available", vim.log.levels.WARN)
-      return
-    end
-
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local capabilities = cmp_nvim_lsp.default_capabilities()
+
+    -- Default capabilities applied to every server (Neovim 0.11+ API)
+    vim.lsp.config("*", { capabilities = capabilities })
 
     local keymap = vim.keymap
 
@@ -67,8 +63,6 @@ return {
       end,
     })
 
-    local capabilities = cmp_nvim_lsp.default_capabilities()
-
     -- Diagnostic symbols
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
@@ -76,30 +70,22 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-    -- Helper function to safely setup LSP
-    local function setup_server(server_name, config)
-      if lspconfig[server_name] then
-        local server_config = vim.tbl_deep_extend("force", {
-          capabilities = capabilities,
-        }, config or {})
-        lspconfig[server_name].setup(server_config)
-      end
-    end
-
-    -- Setup servers
-    setup_server("html")
-    setup_server("cssls")
-    setup_server("tailwindcss")
-    setup_server("pyright")
-    setup_server("clangd")
-    setup_server("sqlls")
-    setup_server("bashls")
-    setup_server("yamlls")
-    setup_server("gopls")
+    -- Servers using their bundled nvim-lspconfig defaults
+    vim.lsp.enable({
+      "html",
+      "cssls",
+      "tailwindcss",
+      "pyright",
+      "clangd",
+      "sqlls",
+      "bashls",
+      "yamlls",
+      "gopls",
+    })
 
     -- Svelte with special config
-    setup_server("svelte", {
-      on_attach = function(client, bufnr)
+    vim.lsp.config("svelte", {
+      on_attach = function(client)
         vim.api.nvim_create_autocmd("BufWritePost", {
           pattern = { "*.js", "*.ts" },
           callback = function(ctx)
@@ -108,14 +94,16 @@ return {
         })
       end,
     })
+    vim.lsp.enable("svelte")
 
     -- Emmet
-    setup_server("emmet_ls", {
+    vim.lsp.config("emmet_ls", {
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
+    vim.lsp.enable("emmet_ls")
 
     -- Lua LS
-    setup_server("lua_ls", {
+    vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
           diagnostics = {
@@ -127,10 +115,11 @@ return {
         },
       },
     })
+    vim.lsp.enable("lua_ls")
 
     -- Deno
-    setup_server("denols", {
-      root_dir = lspconfig.util.root_pattern("deno.lock", "deno.json", "deno.jsonc"),
+    vim.lsp.config("denols", {
+      root_markers = { "deno.lock", "deno.json", "deno.jsonc" },
       settings = {
         deno = {
           enable = false,
@@ -138,11 +127,13 @@ return {
       },
       single_file_support = true,
     })
+    vim.lsp.enable("denols")
 
     -- TypeScript
-    setup_server("ts_ls", {
-      root_dir = lspconfig.util.root_pattern("package.json"),
+    vim.lsp.config("ts_ls", {
+      root_markers = { "package.json" },
       single_file_support = false,
     })
+    vim.lsp.enable("ts_ls")
   end,
 }

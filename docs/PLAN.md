@@ -11,22 +11,23 @@ Guiding principles (from `AGENTS.md`):
 ---
 
 ## Phase 0 — Removals & security triage
-**Status: On hold (awaiting user go-ahead)**
+**Status: ✅ Done**
 
-Rationale (already agreed in principle):
-- Jupyter notebook stack (`jupyter.lua`) — not needed; also frees `<leader>sm/sv/sr`.
-- Copilot (`copilot.lua` + 3 keymaps in `core/keymaps.lua`) — AI integration direction changed to Claude (Phase 6).
-- Discord presence (`cord.lua`) — can transmit project/file names externally.
-- FireNvim (`firenvim.lua`) — review whether buffer content can leave the machine.
+Completed:
+- Deleted `lua/yuvan/plugins/jupyter.lua` (jupytext, iron.nvim, NotebookNavigator, mini.comment) — frees `<leader>sm/sv/sr`.
+- Deleted `lua/yuvan/plugins/copilot.lua` (copilot.vim, CopilotChat.nvim) + removed 3 Copilot keymaps from `core/keymaps.lua`.
+- Deleted `lua/yuvan/plugins/cord.lua` (Discord presence) — external data leak; removed for office security.
+- Removed deprecated `neodev.nvim` from `lsp/lspconfig.lua` (built into lua_ls now).
+- **Bug fix:** removed `vim-tmux-navigator` from `plugins/init.lua` — it collided with `smart-splits` over `<C-h/j/k/l>` (tmux **is** installed). `smart-splits` keeps tmux support; conflict resolved.
+- **Bug fix:** removed `vim.deprecate = function() end` stub in `core/options.lua` — surfaced real deprecation warnings (0 remain).
+- **Bug fix:** lualine theme `nightfly` → `auto` (now matches `cyberdream`).
+- **Dead code:** cleaned large commented blocks in `colorscheme.lua`, `lualine.lua`, `nvim-tree.lua`, `alpha.lua` (unused header vars); removed CopilotChat highlights from `options.lua`.
+- Ran `:Lazy clean` (offline) — lockfile pruned **47 → 38** entries; config boots clean (verified headless).
 
-Deliverables:
-- Delete `lua/yuvan/plugins/jupyter.lua`, `lua/yuvan/plugins/copilot.lua`.
-- Remove Copilot Chat keymaps from `core/keymaps.lua`.
-- Decide on `cord.lua` / `firenvim.lua` (keep, disable, or remove).
-- Run `:Lazy sync` so orphaned plugins drop from lockfile.
-- Update `docs/IMPLEMENTED.md`, `CHECKPOINTS.md`, `docs/SECURITY.md`.
+Kept after security review:
+- `firenvim.lua` — **kept**; local loopback by default (no external egress unless reconfigured). Flagged low-risk in `docs/SECURITY.md`. Easily removed on request.
 
-Acceptance: no references to jupyter/copilot remain; lockfile regenerated; config boots clean.
+Acceptance: ✅ no jupyter/copilot/cord refs remain; lockfile regenerated; clean boot, no deprecation flood.
 
 ---
 
@@ -129,13 +130,13 @@ Acceptance: chosen plugin added under `lua/yuvan/plugins/`, lazy-loaded, `<leade
 ### Keymap conflict inventory (resolve during Phases 1–2)
 | Binding | Current owner(s) | Resolution |
 |---|---|---|
-| `<leader>sm` | vim-maximizer, iron.nvim (jupyter) | Remove jupyter → maximizer wins |
-| `<leader>sv` | window split, iron.nvim | Remove jupyter → split wins |
-| `<leader>sr` | iron.nvim | Remove jupyter |
-| `<C-h/j/k/l>` | smart-splits, vim-tmux-navigator | Decide one (smart-splits is richer) |
-| `<leader>d` / `<leader>rn` | LSP diagnostics/rename | Reserve `<leader>d` for diagnostics; use `<leader>b` or `<leader>D` for DAP, or a `<leader>g` debug group |
-| Insert `<C-j>` | nvim-cmp next item, Copilot accept | Remove Copilot → cmp wins |
-| `<leader>cc` | Copilot chat (freed on removal) | Available for Claude (Phase 6) |
+| `<leader>sm` | vim-maximizer, iron.nvim (jupyter) | ✅ jupyter removed → maximizer owns it |
+| `<leader>sv` | window split, iron.nvim | ✅ jupyter removed → split owns it |
+| `<leader>sr` | iron.nvim | ✅ jupyter removed |
+| `<C-h/j/k/l>` | smart-splits, vim-tmux-navigator | ✅ vim-tmux-navigator removed; smart-splits owns it |
+| `<leader>d` / `<leader>rn` | LSP diagnostics/rename | Open (Phase 2): reserve `<leader>d` for diagnostics; use a `<leader>g` group for DAP |
+| Insert `<C-j>` | nvim-cmp next item, Copilot accept | ✅ Copilot removed → cmp owns it |
+| `<leader>cc` | Copilot chat (freed on removal) | ✅ free; reserved for Claude (Phase 6) |
 
 ### Backlog (low priority)
 - Markdown: keep `markview.nvim`; add `mkdnflow`/`render-markdown` only if needed.

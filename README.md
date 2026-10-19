@@ -41,23 +41,20 @@ nvim/
     │   └── keymaps.lua        # Leader=Space keymaps
     ├── lazy.lua                # lazy.nvim bootstrap + plugin imports
     └── plugins/
-        ├── init.lua            # Core utilities (plenary, tmux navigator)
+        ├── init.lua            # Core utilities (plenary)
         ├── alpha.lua           # Dashboard
         ├── autopairs.lua
         ├── barbecue.lua         # Breadcrumbs (navic)
         ├── colorscheme.lua     # cyberdream (theme)
         ├── comment.lua
-        ├── copilot.lua          # (on hold; to be removed per plan)
-        ├── cord.lua             # Discord RPC (review for office)
-        ├── firenvim.lua          # Browser <-> nvim (review for office)
+        ├── firenvim.lua          # Browser <-> nvim (kept; loopback, low risk)
         ├── formatting.lua       # Conform (formatters by FT)
         ├── indent-blankline.lua
-        ├── jupyter.lua           # (on hold; to be removed per plan)
         ├── lualine.lua          # Statusline
         ├── markview.lua          # Markdown preview/render
         ├── nvim-cmp.lua         # Completion (nvim-cmp + luasnip)
         ├── nvim-tree.lua         # File explorer
-        ├── smart-splits.lua      # Split navigation/resizing
+        ├── smart-splits.lua      # Split nav/resize (also tmux)
         ├── surround.lua
         ├── telescope.lua         # Fuzzy finder
         ├── treesitter.lua         # Syntax/indent + autotag
@@ -68,6 +65,8 @@ nvim/
             ├── mason.lua         # LSP/formatters/lint tools installer
             └── lspconfig.lua     # LSP config + keymaps + per-server setup
 ```
+
+> **Phase 0 removed:** `jupyter.lua`, `copilot.lua`, `cord.lua`, and the `vim-tmux-navigator` dependency. Lockfile is 38 plugins. See `docs/IMPLEMENTED.md`.
 
 ## Quick Start
 
@@ -82,7 +81,7 @@ nvim/
 | Document | Purpose |
 |---|---|
 | [`AGENTS.md`](AGENTS.md) | Self-contained context for AI coding agents; conventions, scope, policy. Read first in new sessions. |
-| [`docs/PLAN.md`](docs/PLAN.md) | Master roadmap: removals (on-hold), Java stack, security hardening, Claude (TBD), DX upgrades. |
+| [`docs/PLAN.md`](docs/PLAN.md) | Master roadmap: Phase 0 done, Java stack, security hardening, Claude (TBD), DX upgrades. |
 | [`docs/IMPLEMENTED.md`](docs/IMPLEMENTED.md) | Baseline inventory of what exists today (with change tracking). |
 | [`docs/CHECKPOINTS.md`](docs/CHECKPOINTS.md) | Milestones and phase-by-phase progress checklist. |
 | [`docs/JAVA.md`](docs/JAVA.md) | Comprehensive Java support plan: JDKs, jdtls/DAP/tests, Maven/Gradle, JAR/decompilation, Spring Boot/Servlet, formatting/linting. |
@@ -98,12 +97,11 @@ nvim/
 
 ## Security Note (Office Usage)
 
-This repo is intended for office/workplace use. Items flagged for review/removal in current baseline:
-- `cord.lua` (Discord presence) — can leak project/file context externally.
-- `firenvim.lua` (browser integration) — buffers may transit through browser context depending on setup.
-- `copilot.lua`, `jupyter.lua` — marked **on-hold** for removal in `docs/PLAN.md` (data/IP considerations).
+This repo is intended for office/workplace use. Status after Phase 0:
+- **Removed:** `copilot.lua` (cloud code egress), `jupyter.lua` (unused), `cord.lua` (Discord presence leaked project/file context).
+- **Kept (reviewed):** `firenvim.lua` — local loopback by default, no external egress unless reconfigured. Low risk; remove on request.
 
-See [`docs/SECURITY.md`](docs/SECURITY.md) for full threat model, hardening checklist, dependency scanning, and secrets management.
+See [`docs/SECURITY.md`](docs/SECURITY.md) for the full threat model, hardening checklist, dependency scanning, and secrets management.
 
 ## Status
 

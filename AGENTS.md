@@ -54,13 +54,13 @@ Every meaningful change must update these files as appropriate:
 
 Keep documents **concise but complete** — a future session must understand context from `README.md` + `AGENTS.md` + `docs/` alone.
 
-## Current On-Hold / Decisions (do not act without user confirmation)
+## Current Decisions / State
 
-- **Jupyter notebook plugins** (`plugins/jupyter.lua`): marked for removal. Currently **on hold**.
-- **Copilot AI** (`plugins/copilot.lua` + keymaps in `core/keymaps.lua`): marked for removal. Currently **on hold**.
-- **Discord RPC** (`plugins/cord.lua`): flagged for office security review (potential data leak).
-- **FireNvim** (`plugins/firenvim.lua`): flagged for office security review.
+- **Phase 0 cleanup: DONE.** Removed `jupyter.lua`, `copilot.lua` (+Copilot keymaps), `cord.lua` (Discord leak), `vim-tmux-navigator` (conflicted with smart-splits), `neodev.nvim` (deprecated). Lockfile pruned to 38 plugins. See `docs/IMPLEMENTED.md`.
+- **FireNvim** (`plugins/firenvim.lua`): kept after review (local loopback, low risk). Remove only with user confirmation.
 - **Claude integration:** deferred decision (`coder/claudecode.nvim` vs `greggh/claude-code.nvim` vs `olimorris/codecompanion.nvim` vs `folke/sidekick.nvim`). See `docs/PLAN.md` Phase 6.
+- **Next focus:** comprehensive Java support (see `docs/JAVA.md`) + office security hardening (`docs/SECURITY.md`).
+- **Deployment note:** the repo (`/home/yuvan/Programs/Bash/nvim`) is deployed as a **copy** to `~/.config/nvim` (not a symlink). After changing repo files, sync them to `~/.config/nvim` or the live editor will keep stale code. Keep `lazy-lock.json` in sync too.
 
 ## How to Verify Changes
 

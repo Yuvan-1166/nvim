@@ -1,55 +1,51 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   event = { "BufReadPre", "BufNewFile" },
   build = ":TSUpdate",
   dependencies = {
     "windwp/nvim-ts-autotag",
   },
   config = function()
-    local treesitter_ok, treesitter = pcall(require, "nvim-treesitter.configs")
+    local parsers = {
+      "c",
+      "cpp",
+      "go",
+      "json",
+      "javascript",
+      "typescript",
+      "tsx",
+      "yaml",
+      "html",
+      "css",
+      "markdown",
+      "markdown_inline",
+      "svelte",
+      "bash",
+      "lua",
+      "dockerfile",
+      "gitignore",
+      "python",
+      "sql",
+      "toml",
+    }
+
+    local treesitter_ok, treesitter = pcall(require, "nvim-treesitter")
     if not treesitter_ok then
       return
     end
 
-    treesitter.setup({
-      -- enable syntax highlighting
-      highlight = {
-        enable = true,
-      },
-      -- enable indentation
-      indent = { enable = true },
-      -- ensure these language parsers are installed
-      ensure_installed = {
-        "c",
-        "cpp",
-        "go",
-        "json",
-        "javascript",
-        "typescript",
-        "tsx",
-        "yaml",
-        "html",
-        "css",
-        "markdown",
-        "markdown_inline",
-        "svelte",
-        "bash",
-        "lua",
-        "dockerfile",
-        "gitignore",
-        "python",
-        "sql",
-        "toml",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
+    -- Install missing parsers (async, no-op when already present)
+    treesitter.install(parsers)
+
+    -- Neovim 0.11+ native highlighting + treesitter indentation
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("UserTreesitter", {}),
+      callback = function(ev)
+        if pcall(vim.treesitter.start, ev.buf) then
+          vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
     })
 
     -- configure nvim-ts-autotag separately

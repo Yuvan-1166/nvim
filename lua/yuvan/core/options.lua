@@ -1,8 +1,5 @@
 vim.g.netrw_liststyle = 3
 
--- Suppress lspconfig deprecation warning for now (nvim-lspconfig not fully migrated to 0.11 yet)
-vim.deprecate = function() end
-
 local opt = vim.opt -- for conciseness
 
 -- line numbers
@@ -45,9 +42,3 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
-
-vim.cmd([[
-  highlight CopilotChatPanelBorder guifg=#3c3c3c
-  highlight CopilotChatPanelTitle  guifg=#61afef gui=bold
-]])
-vim.api.nvim_set_hl(0, "CopilotChatPopup", { bg = "#282c34", fg = "#abb2bf" })
