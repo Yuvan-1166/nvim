@@ -12,10 +12,11 @@ Companion docs: [`PLAN.md`](PLAN.md) (phases), [`SECURITY.md`](SECURITY.md) (sca
 |---|---|
 | Neovim | 0.12.5 (≥ 0.11.5 required for `nvim-java`; ≥ 0.12 for latest `spring-boot.nvim`) |
 | Default JDK | Temurin `21.0.12.1` (SDKMAN: `~/.sdkman/candidates/java/21.0.12+1.1-tem`) |
+| Installed JDKs | Temurin `8.0.504+1-tem`, `11.0.32+1.1-tem`, `17.0.20-tem`, `21.0.12+1.1-tem` (default), `25.0.4.1+1-tem` |
 | JDK manager | **SDKMAN** (installed). Candidates dir: `~/.sdkman/candidates/java/` |
 | Maven | `3.9.11` |
 | Gradle | `8.7` |
-| LSP | none for Java yet (see Phase 1) |
+| Java LSP | **`nvim-java` + jdtls** (`lua/yuvan/plugins/lsp/java.lua`) — Phase 1, attached ✓ |
 
 Notes:
 - `eclipse.jdt.ls` (jdtls) **itself runs on Java 21**, but it can compile/analyze projects targeting **Java ≥ 8** by configuring `java.configuration.runtimes`.
@@ -33,22 +34,20 @@ All-in-one, "painless Java", actively maintained. It:
 - Provides run/test/refactor commands (see §6).
 - Requires **Neovim 0.11.5+** (we have 0.12.5).
 
-lazy.nvim spec (to add as `lua/yuvan/plugins/java.lua` in Phase 1):
+**Implemented (Phase 1)** as `lua/yuvan/plugins/lsp/java.lua`:
 
 ```lua
 return {
   "nvim-java/nvim-java",
-  ft = { "java", "xml", "jproperties" },
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "nvim-java/lua-async-await",
-    "nvim-java/nvim-java-dap",
+    { "JavaHello/spring-boot.nvim", commit = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0" },
     "MunifTanjim/nui.nvim",
-    "neovim/nvim-lspconfig",
     "mfussenegger/nvim-dap",
   },
   config = function()
     require("java").setup()
-    -- LSP enable via vim.lsp (jdtls)
+    -- vim.lsp.config("jdtls", { settings.java.configuration.runtimes = { ... } })  -- 5 SDKMAN JDKs, 21 default
     vim.lsp.enable("jdtls")
   end,
 }
@@ -59,7 +58,7 @@ Choose this if you want full control and a smaller surface. Provides:
 `organize_imports`, `extract_variable/field/method`, `JdtCompile`, `JdtSetRuntime`, `JdtBytecode`, `JdtJshell`, `JdtRestart`, plus DAP integration when `java-debug`/`java-test` bundles are supplied.
 Requires explicit `bundles = { java-debug-*.jar, java-test/*.jar }` and `init_options`.
 
-**Decision (pending):** default to `nvim-java`; fall back to `nvim-jdtls` if it conflicts with the existing `mason`/`lspconfig` setup (nvim-java even checks `nvim_jdtls_conflict`).
+**Decision (made, Phase 1):** use `nvim-java`; `nvim-jdtls` is not installed. nvim-java's `checks.nvim_jdtls_conflict` stays enabled as a guard against accidentally adding it later.
 
 ### 2.3 Multi-JDK configuration (JDK 8 → latest)
 Register every installed JDK so jdtls can build against any of them, and set the default:
@@ -86,11 +85,13 @@ vim.lsp.config("jdtls", {
 
 Runtime switching at runtime: `nvim-java` → `:JavaSettingsChangeRuntime`; jdtls → `JdtSetRuntime`. Auto-detect per project via `.sdkmanrc` / `.java-version` (SDKMAN `sdk env`) is a Phase-1 nice-to-have.
 
-### 2.4 Lombok
-`lombok.nvim` (mfussenegger) — attaches the lombok agent to jdtls to eliminate `@Slf4j`/`@Data` false diagnostics and broken getters/setters. Essential for Spring projects.
+**Implemented:** all five paths above are real SDKMAN dirs (`8.0.504+1-tem`, `11.0.32+1.1-tem`, `17.0.20-tem`, `21.0.12+1.1-tem`, `25.0.4.1+1-tem`); only 21 carries `default = true`. Verified at runtime: `jdtls` reports 5 registered runtimes.
 
-### 2.5 Treesitter parsers to add
-`java`, `xml`, `properties`, `groovy` / `gradle` (build files), `sql` (already present).
+### 2.4 Lombok — done via nvim-java
+`nvim-java` bundles Lombok itself (`lombok.enable = true`, auto-installed jar), so the separate `lombok.nvim` plugin is **not** used — avoids two agents competing for the same jdtls instance. Re-check `@Slf4j`/`@Data` on a real Spring project.
+
+### 2.5 Treesitter parsers — added (Phase 1)
+`java`, `xml`, `properties`, `groovy` added to `plugins/treesitter.lua` (parser name is `groovy`, which also covers Gradle scripts). `sql` was already present. Installed through nvim-treesitter `main`.
 
 ---
 
@@ -216,13 +217,13 @@ Keymaps (tentative; resolve `<leader>d` conflict in PLAN):
 
 ## 11. Implementation checklist (maps to PLAN Phases 1–4)
 
-- [ ] Add `java` (and `xml`, `properties`, `groovy`) treesitter parsers.
-- [ ] Add `lua/yuvan/plugins/java.lua` with chosen jdtls driver.
-- [ ] Add Lombok support.
-- [ ] Register JDK runtimes (8/11/17/21/25) + runtime switching.
-- [ ] Install JDKs via SDKMAN (8, 11, 17, 21, 25).
-- [ ] Add `google-java-format` to conform + mason-tool-installer.
-- [ ] Add `nvim-dap` + `nvim-dap-ui` (+ virtual text) and Java adapter.
+- [x] Add `java` (and `xml`, `properties`, `groovy`) treesitter parsers.
+- [x] Add `lua/yuvan/plugins/lsp/java.lua` with chosen jdtls driver (`nvim-java`).
+- [x] Add Lombok support (nvim-java built-in — no separate plugin).
+- [x] Register JDK runtimes (8/11/17/21/25) + runtime switching (`:JavaSettingsChangeRuntime`).
+- [x] Install JDKs via SDKMAN (8, 11, 17, 21, 25).
+- [x] Add `google-java-format` to conform + mason-tool-installer.
+- [ ] Add `nvim-dap` + `nvim-dap-ui` (+ virtual text) and Java adapter. *(nvim-dap is now a dep; dap-ui/keymaps → Phase 2)*
 - [ ] Wire `java-test` for JUnit run/debug.
 - [ ] Add `spring-boot.nvim` (STS4) + verify properties/yml completion + bean search.
 - [ ] Add Maven/Gradle task runner (overseer or custom commands).

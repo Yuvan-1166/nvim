@@ -32,15 +32,15 @@ Acceptance: ✅ no jupyter/copilot/cord refs remain; lockfile regenerated; clean
 ---
 
 ## Phase 1 — Java foundation (LSP / JDK)
-**Status: Not started** → see `docs/JAVA.md` for full detail
+**Status: Done (2026-10-19)** → see `docs/JAVA.md` for full detail
 
-- Adopt a Java LSP driver: **`nvim-java/nvim-java`** (recommended, all-in-one: jdtls + java-debug + java-test + spring-boot-tools, requires nvim ≥ 0.11.5) **or** `mfussenegger/nvim-jdtls` (manual, "keep it simple"). Decision needed.
-- JDK strategy: **SDKMAN** already installed; register **multiple JDKs** (8, 11, 17, 21, 25) and wire per-project runtime selection (`vim.lsp.config('jdtls', { settings.java.configuration.runtimes })`).
-- Lombok support (`lombok.nvim`) for false-positive-free enterprise code.
-- Formatting: `google-java-format` via `conform.nvim`; add to `mason-tool-installer`.
-- Treesitter: add `java`, `xml`, `properties`, `gradle`/`groovy` parsers.
+- Driver chosen: **`nvim-java/nvim-java`** (all-in-one: jdtls + java-debug + java-test + spring-boot-tools). Spec: `lua/yuvan/plugins/lsp/java.lua`.
+- JDKs installed via SDKMAN — Temurin **8, 11, 17, 21, 25** — all registered in `vim.lsp.config('jdtls', { settings.java.configuration.runtimes })`, **21 = default**; switch with `:JavaSettingsChangeRuntime`.
+- Lombok: supplied by **nvim-java built-in** (`lombok.enable = true`) — no separate `lombok.nvim`.
+- Formatting: `google-java-format` via `conform.nvim` + `mason-tool-installer` (installed).
+- Treesitter: `java`, `xml`, `properties`, `groovy` parsers added.
 
-Acceptance: open a Java file → jdtls attaches, diagnostics/format/organize-imports work; `:JavaSettingsChangeRuntime` (or equivalent) switches JDK.
+Acceptance met: open a Java file → jdtls attaches (project root detected), 5 runtimes registered, diagnostics + formatting verified. Organize-imports still to confirm against a real project.
 
 ---
 

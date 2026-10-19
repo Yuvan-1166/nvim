@@ -20,16 +20,17 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ---
 
-## Phase 1 — Java foundation (LSP / JDK)  `[ ]`
+## Phase 1 — Java foundation (LSP / JDK)  `[x] Done 2026-10-19`
 
-- [ ] Decide driver: `nvim-java` (recommended) vs `nvim-jdtls`
-- [ ] Install JDKs 8, 11, 17, 21, 25 via SDKMAN
-- [ ] Add `lua/yuvan/plugins/java.lua` (jdtls driver + deps)
-- [ ] Register JDK runtimes in jdtls settings (`java.configuration.runtimes`)
-- [ ] Add Lombok support (`lombok.nvim`)
-- [ ] Add treesitter parsers: `java`, `xml`, `properties`, `groovy`/`gradle`
-- [ ] Add `google-java-format` to conform + mason-tool-installer
-- [ ] Verify: open Java file → jdtls attaches, diagnostics + format + organize-imports work
+- [x] Decide driver: **`nvim-java`** (chosen; `nvim-jdtls` not used)
+- [x] Install JDKs 8, 11, 17, 21, 25 via SDKMAN (Temurin 8.0.504 / 11.0.32 / 17.0.20 / 21.0.12 / 25.0.4.1)
+- [x] Add `lua/yuvan/plugins/lsp/java.lua` (nvim-java + spring-boot.nvim, nui.nvim, nvim-dap)
+- [x] Register JDK runtimes in jdtls settings (5 runtimes, **21 = default**)
+- [x] Lombok via nvim-java built-in (`lombok.enable`) — no separate `lombok.nvim`
+- [x] Add treesitter parsers: `java`, `xml`, `properties`, `groovy`
+- [x] Add `google-java-format` to conform + mason-tool-installer (v1.37.0)
+- [x] Verify: jdtls attaches (root detected), 5 runtimes, diagnostics + format work
+- [ ] Confirm organize-imports + `:JavaSettingsChangeRuntime` against a real project
 
 ---
 

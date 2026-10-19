@@ -62,11 +62,12 @@ nvim/
         ├── vim-maximizer.lua
         ├── which-key.lua         # Keymap hints
         └── lsp/
+            ├── java.lua         # nvim-java: jdtls + debug/test bundles + Spring Boot LS
             ├── mason.lua         # LSP/formatters/lint tools installer
             └── lspconfig.lua     # LSP config + keymaps + per-server setup
 ```
 
-> **Phase 0 removed:** `jupyter.lua`, `copilot.lua`, `cord.lua`, and the `vim-tmux-navigator` dependency. Lockfile is 38 plugins. See `docs/IMPLEMENTED.md`.
+> **Phase 0 removed:** `jupyter.lua`, `copilot.lua`, `cord.lua`, `vim-tmux-navigator`. **Phase 1 added** full Java support (nvim-java/jdtls, JDKs 8/11/17/21/25). Lockfile: **42** plugins. See `docs/IMPLEMENTED.md`.
 
 ## Quick Start
 
@@ -81,7 +82,7 @@ nvim/
 | Document | Purpose |
 |---|---|
 | [`AGENTS.md`](AGENTS.md) | Self-contained context for AI coding agents; conventions, scope, policy. Read first in new sessions. |
-| [`docs/PLAN.md`](docs/PLAN.md) | Master roadmap: Phase 0 done, Java stack, security hardening, Claude (TBD), DX upgrades. |
+| [`docs/PLAN.md`](docs/PLAN.md) | Master roadmap: Phases 0–1 done, Java debugging/build/decompile, security hardening, Claude (TBD), DX upgrades. |
 | [`docs/IMPLEMENTED.md`](docs/IMPLEMENTED.md) | Baseline inventory of what exists today (with change tracking). |
 | [`docs/CHECKPOINTS.md`](docs/CHECKPOINTS.md) | Milestones and phase-by-phase progress checklist. |
 | [`docs/JAVA.md`](docs/JAVA.md) | Comprehensive Java support plan: JDKs, jdtls/DAP/tests, Maven/Gradle, JAR/decompilation, Spring Boot/Servlet, formatting/linting. |
@@ -97,9 +98,10 @@ nvim/
 
 ## Security Note (Office Usage)
 
-This repo is intended for office/workplace use. Status after Phase 0:
+This repo is intended for office/workplace use. Status after Phases 0–1:
 - **Removed:** `copilot.lua` (cloud code egress), `jupyter.lua` (unused), `cord.lua` (Discord presence leaked project/file context).
 - **Kept (reviewed):** `firenvim.lua` — local loopback by default, no external egress unless reconfigured. Low risk; remove on request.
+- **Phase 1 (reviewed):** `nvim-java` downloads versioned jdtls/java-debug/java-test/lombok/spring-boot jars (dev tooling, no telemetry); `spring-boot.nvim` pinned to a commit. Details in `docs/SECURITY.md`.
 
 See [`docs/SECURITY.md`](docs/SECURITY.md) for the full threat model, hardening checklist, dependency scanning, and secrets management.
 

@@ -55,6 +55,7 @@ Companion docs: [`PLAN.md`](PLAN.md) (Phase 5), [`JAVA.md`](JAVA.md) (Java tooli
 3. **Prefer mainstream** — `nvim-dap`, `nvim-treesitter`, `telescope`, `mason`, `conform`, `nvim-jdtls`/`nvim-java` (well-known).
 4. **No anonymous `build` scripts** without inspection — e.g. `cord.lua` uses `build = "./build || .\\build"`; inspect before trusting.
 5. **Update cadence** — update deliberately (not auto), read `:Lazy` changelog, re-run `:checkhealth`.
+6. **nvim-java downloads** — jdtls, java-debug, java-test, lombok and spring-boot-tools jars are fetched once by nvim-java's `auto_install` into `~/.local/share/nvim/nvim-java/` (versions come from nvim-java's pinned defaults). Reviewed in Phase 1: local dev tooling, no code egress. Set `auto_install = false` + `path = ...` to use externally managed copies instead.
 
 ---
 
@@ -101,4 +102,7 @@ Any change to security-relevant plugins (add/remove/disabling) must be recorded 
 | Phase 0 | neodev.nvim | **Removed** | Deprecated; functionality in lua_ls |
 | Phase 0 | vim-deprecate stub | **Removed** | Hid deprecation warnings (0 now) |
 | Phase 0 | firenvim.lua | **Kept, reviewed** | Local loopback only; low risk — remove on request |
+| Phase 1 | nvim-java, spring-boot.nvim, nui.nvim, nvim-dap | **Added** | Java IDE stack; well-known maintainers, commits pinned in `lazy-lock.json`, no telemetry |
+| Phase 1 | google-java-format (mason) | **Added** | Local formatter binary; no network/telemetry |
+| Phase 1 | nvim-java jar downloads (jdtls / java-debug / java-test / lombok / spring-boot-tools) | **Reviewed** | Versioned jars fetched once into `~/.local/share/nvim/nvim-java/` (versions from nvim-java defaults); local dev tooling only — no code egress |
 | (baseline) | firenvim.lua | flagged then reviewed | Browser bridge egress risk — assessed low (loopback) |

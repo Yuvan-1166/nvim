@@ -28,6 +28,10 @@ return {
       "python",
       "sql",
       "toml",
+      "java",
+      "xml",
+      "properties",
+      "groovy",
     }
 
     local treesitter_ok, treesitter = pcall(require, "nvim-treesitter")

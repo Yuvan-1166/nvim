@@ -60,7 +60,7 @@ Keep documents **concise but complete** — a future session must understand con
 - **FireNvim** (`plugins/firenvim.lua`): kept after review (local loopback, low risk). Remove only with user confirmation.
 - **Claude integration:** deferred decision (`coder/claudecode.nvim` vs `greggh/claude-code.nvim` vs `olimorris/codecompanion.nvim` vs `folke/sidekick.nvim`). See `docs/PLAN.md` Phase 6.
 - **Next focus:** comprehensive Java support (see `docs/JAVA.md`) + office security hardening (`docs/SECURITY.md`).
-- **Deployment note:** the repo (`/home/yuvan/Programs/Bash/nvim`) is deployed as a **copy** to `~/.config/nvim` (not a symlink). After changing repo files, sync them to `~/.config/nvim` or the live editor will keep stale code. Keep `lazy-lock.json` in sync too.
+- **Deployment note:** `~/.config/nvim` is a **symlink** to this repo — edits here are live immediately (no copy step). Keep `lazy-lock.json` in sync with `:Lazy sync`.
 
 ## How to Verify Changes
 

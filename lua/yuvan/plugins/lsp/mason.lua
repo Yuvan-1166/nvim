@@ -50,6 +50,7 @@ return {
         "clang-format",
         "prettierd",
         "golangci-lint",
+        "google-java-format",
       },
     })
   end,

@@ -21,6 +21,7 @@ return {
         cpp = { "clang-format" },
         c = { "clang-format" },
         go = { "gofmt" },
+        java = { "google-java-format" },
       },
       format_on_save = {
         lsp_fallback = true,
