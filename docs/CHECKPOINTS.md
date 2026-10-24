@@ -34,14 +34,14 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ---
 
-## Phase 2 — Java debugging & testing  `[ ]`
+## Phase 2 — Java debugging & testing  `[x] Done 2026-10-24`
 
-- [ ] Add `nvim-dap` + `nvim-dap-ui` (+ virtual text)
-- [ ] Wire Java debug adapter (via nvim-java / manual bundles)
-- [ ] Wire `java-test` (JUnit run/debug)
-- [ ] Add DAP keymaps (resolve `<leader>d` conflict)
-- [ ] Configure attach/remote debug (container / Spring Boot)
-- [ ] Verify: breakpoint + step + inspect; run/debug a test
+- [x] Add `nvim-dap` + `nvim-dap-ui` (+ virtual text)
+- [x] Wire Java debug adapter (via nvim-java bundles)
+- [x] Wire `java-test` (JUnit run/debug)
+- [x] Add DAP keymaps (`<leader>g`) with `<leader>d` reserved for LSP diagnostics
+- [x] Configure attach/remote debug (JDWP :5005)
+- [x] Verify: breakpoint + step + inspect; test run/debug session verified
 
 ---
 

@@ -25,7 +25,7 @@ Baseline snapshot of the config as of the initial documentation pass (2025). Fut
 
 **LSP/Completion:** mason, mason-lspconfig, mason-tool-installer, nvim-lspconfig (wired via `vim.lsp.config`/`vim.lsp.enable`), nvim-lsp-file-operations, cmp-nvim-lsp, nvim-cmp (+buffer/path/luasnip/lspkind/friendly-snippets), trouble.
 
-**Java:** nvim-java (jdtls driver), spring-boot.nvim (STS4, pinned commit), nui.nvim, nvim-dap (debug core — UI/keymaps still Phase 2).
+**Java:** nvim-java (jdtls driver), spring-boot.nvim (STS4, pinned commit), nui.nvim, nvim-dap, nvim-dap-ui, nvim-dap-virtual-text, nvim-nio (Phase 2).
 
 **Formatting:** conform.nvim (prettier/prettierd, stylua, isort, clang-format, gofmt).
 
@@ -33,7 +33,7 @@ Baseline snapshot of the config as of the initial documentation pass (2025). Fut
 
 **FireNvim:** kept after security review (local loopback, low risk). See `SECURITY.md`.
 
-**Removed in Phase 0:** copilot.vim + CopilotChat.nvim, jupyter stack (jupytext, iron.nvim, NotebookNavigator, mini.comment), cord.nvim, vim-tmux-navigator, neodev.nvim. Lockfile: **42** entries (47 → 38 after Phase 0 → 42 after Phase 1).
+**Removed in Phase 0:** copilot.vim + CopilotChat.nvim, jupyter stack (jupytext, iron.nvim, NotebookNavigator, mini.comment), cord.nvim, vim-tmux-navigator, neodev.nvim. Lockfile: **45** entries (47 → 38 after Phase 0 → 42 after Phase 1 → 45 after Phase 2).
 
 ## LSP servers configured (via `lsp/lspconfig.lua`)
 
@@ -74,9 +74,10 @@ Tools: prettier, stylua, isort, clang-format, prettierd, golangci-lint, google-j
 | Date | Change | Files |
 |---|---|---|
 | Phase 1 | **Java foundation:** new `plugins/lsp/java.lua` (nvim-java + spring-boot.nvim/nui.nvim/nvim-dap), 5 JDK runtimes in jdtls (21 default), `google-java-format` in conform + mason, treesitter `java/xml/properties/groovy`. jdtls attach + diagnostics + format verified | new: lsp/java.lua; edited: mason.lua, formatting.lua, treesitter.lua |
+| Phase 2 | **Debugging & testing:** new `plugins/dap.lua` (`nvim-dap` + UI + virtual text + nvim-nio), attach config for JDWP :5005, DAP keymaps under `<leader>g`; expanded Java keymaps (`<leader>jr/js/jl/jp/jV/jc/jv/jo/jt/jd/jm/jM/jT/jR`) in `plugins/lsp/java.lua`. Verified breakpoint → frame resolution → continue/exit; Java test run/debug via nvim-java. | dap.lua, lsp/java.lua, which-key.lua |
 | Phase 1 | **JDKs installed** via SDKMAN (Temurin 8 / 11 / 17 / 21 / 25) | `~/.sdkman/candidates/java/` |
 | Phase 1 | **Deprecations fixed:** `require('lspconfig')` → `vim.lsp.config`/`vim.lsp.enable`; smart-splits `default_amount` → `resize.amount`; nvim-treesitter migrated to `main` branch API (old `configs` was silently skipped, breaking Lua parsing) | lspconfig.lua, smart-splits.lua, treesitter.lua |
-| Phase 1 | **Lockfile** 38 → 42 entries (nvim-java, spring-boot.nvim, nui.nvim, nvim-dap) | lazy-lock.json |
+| Phase 1 | **Lockfile** 38 → 42 entries (nvim-java, spring-boot.nvim, nui.nvim, nvim-dap); 42 → 45 (nvim-dap-ui, nvim-dap-virtual-text, nvim-nio) | lazy-lock.json |
 | Phase 1 | **Deployment:** `~/.config/nvim` is now a **symlink** to this repo — no copy step | AGENTS.md |
 | Phase 0 | **Removed** jupyter.lua (jupytext/iron/NotebookNavigator), copilot.lua (+CopilotChat keymaps), cord.lua (Discord leak), vim-tmux-navigator (`<C-hjkl>` conflict), neodev.nvim (deprecated) | deleted: jupyter.lua, copilot.lua, cord.lua; edited: plugins/init.lua, lsp/lspconfig.lua |
 | Phase 0 | **Bug fixes:** removed `vim.deprecate` stub; lualine theme `nightfly`→`auto`; resolved `<C-hjkl>` / `<leader>s*` / insert `<C-j>` conflicts. Also fixed the `iron.nvim` `restart` key error by removing the jupyter stack. | core/options.lua, lualine.lua |

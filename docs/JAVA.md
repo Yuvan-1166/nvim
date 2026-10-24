@@ -17,6 +17,7 @@ Companion docs: [`PLAN.md`](PLAN.md) (phases), [`SECURITY.md`](SECURITY.md) (sca
 | Maven | `3.9.11` |
 | Gradle | `8.7` |
 | Java LSP | **`nvim-java` + jdtls** (`lua/yuvan/plugins/lsp/java.lua`) — Phase 1, attached ✓ |
+| Debugger | **`nvim-dap` + `nvim-dap-ui`** (`lua/yuvan/plugins/dap.lua`) — Phase 2, Java launch/attach + tests ✓ |
 
 Notes:
 - `eclipse.jdt.ls` (jdtls) **itself runs on Java 21**, but it can compile/analyze projects targeting **Java ≥ 8** by configuring `java.configuration.runtimes`.
@@ -143,8 +144,9 @@ Keymaps (tentative; resolve `<leader>d` conflict in PLAN):
 
 ## 5. Testing
 
-- `java-test` (vscode-java-test) via jdtls bundle → JUnit 4/5 run + debug from Neovim.
+- `java-test` (vscode-java-test) via jdtls bundle → JUnit 4/5 run + debug from Neovim (Phase 2).
 - Commands (`nvim-java`): `:JavaTestRunCurrentClass`, `:JavaTestDebugCurrentClass`, `:JavaTestRunCurrentMethod`, `:JavaTestDebugCurrentMethod`, `:JavaTestRunAllTests`, `:JavaTestDebugAllTests`, `:JavaTestViewLastReport`.
+- Java keymaps: `<leader>jt/jd/jm/jM/jT/jR/jV`.
 - Alternative lightweight: run `mvn test` / `gradle test` via terminal/`overseer.nvim` and parse output; but jdtls test integration is the standard.
 
 ---
@@ -223,14 +225,14 @@ Keymaps (tentative; resolve `<leader>d` conflict in PLAN):
 - [x] Register JDK runtimes (8/11/17/21/25) + runtime switching (`:JavaSettingsChangeRuntime`).
 - [x] Install JDKs via SDKMAN (8, 11, 17, 21, 25).
 - [x] Add `google-java-format` to conform + mason-tool-installer.
-- [ ] Add `nvim-dap` + `nvim-dap-ui` (+ virtual text) and Java adapter. *(nvim-dap is now a dep; dap-ui/keymaps → Phase 2)*
-- [ ] Wire `java-test` for JUnit run/debug.
-- [ ] Add `spring-boot.nvim` (STS4) + verify properties/yml completion + bean search.
+- [x] Add `nvim-dap` + `nvim-dap-ui` + `nvim-dap-virtual-text` and Java adapter (`plugins/dap.lua`).
+- [x] Wire `java-test` for JUnit run/debug.
+- [ ] Add `spring-boot.nvim` (STS4) + verify properties/yml completion + bean search. *(present, verification Phase 3)*
 - [ ] Add Maven/Gradle task runner (overseer or custom commands).
 - [ ] Add decompiler tooling (CFR/Vineflower + keymap/command).
-- [ ] Configure Servlet/container debug attach.
+- [ ] Configure Servlet/container debug attach. *(attach config present)*
 - [ ] Verify each capability against a real Spring Boot project and a plain Java 8 project.
-- [ ] Update `docs/IMPLEMENTED.md`, `CHECKPOINTS.md`, `README.md`.
+- [x] Update `docs/IMPLEMENTED.md`, `CHECKPOINTS.md`, `PLAN.md`.
 
 ---
 
