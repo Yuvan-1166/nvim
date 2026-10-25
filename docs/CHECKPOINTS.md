@@ -45,13 +45,13 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ---
 
-## Phase 3 — Java build / Spring Boot / Servlet  `[ ]`
+## Phase 3 — Java build / Spring Boot / Servlet  `[x] Done`
 
 - [x] Maven/Gradle task runner (`overseer.nvim` + user templates)
 - [x] `JavaHello/spring-boot.nvim` (STS4) present + helpers `<leader>jsb/jsa`
 - [x] Spring Initializr scaffolding (`elmcgill/springboot-nvim`, `<leader>si`)
 - [x] Servlet/Tomcat/Jetty debug-attach (`<leader>ga` JDWP port prompt)
-- [ ] Verify: run/debug a Spring Boot app; complete `application.yml`; run a Servlet
+- [x] Verify: run/debug a Spring Boot app; complete `application.yml`; run a Servlet
 
 ---
 

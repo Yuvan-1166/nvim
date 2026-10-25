@@ -59,7 +59,7 @@ Acceptance: verified — breakpoint hit, step/frame resolved, program exits clea
 ---
 
 ## Phase 3 — Java build / Spring Boot / Servlet
-**Status: In progress**
+**Status: Done**
 
 - Maven + Gradle project integration via `stevearc/overseer.nvim` with user templates + `<leader>o*` tasks.
 - **Spring Boot**: `JavaHello/spring-boot.nvim` (STS4 language server, pinned) already present; added helpers `<leader>jsb/jsa` and STS actions.
