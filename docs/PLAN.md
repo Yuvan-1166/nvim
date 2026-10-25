@@ -84,7 +84,7 @@ Acceptance: `:Decompile` opens decompiled source of a `.class`/`.jar` in a scrat
 ---
 
 ## Phase 5 — Security hardening (office)
-**Status: Not started** → see `docs/SECURITY.md`
+**Status: In progress** → see `docs/SECURITY.md`
 
 - Enforce **lockfile pinning** and review each new plugin's maintainer/trust.
 - Neovim runtime hardening: disable `exrc`/external config execution, modeline safety, `shada` hygiene, review `autoindent`/`clipboard`.
