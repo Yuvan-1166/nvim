@@ -72,7 +72,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 - [ ] Dependency scanning: OWASP Dependency-Check / Trivy / Grype
 - [ ] SAST: SpotBugs + FindSecBugs / Semgrep
 - [x] Document mirror/proxy config for Maven/Gradle/mason (air-gapped)
-- [ ] Re-review every plugin in lockfile; remove anything untrusted
+- [x] Re-review every plugin in lockfile; remove anything untrusted
 
 ---
 

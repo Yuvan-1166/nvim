@@ -119,3 +119,7 @@ Any change to security-relevant plugins (add/remove/disabling) must be recorded 
 | Phase 1 | nvim-java jar downloads (jdtls / java-debug / java-test / lombok / spring-boot-tools) | **Reviewed** | Versioned jars fetched once into `~/.local/share/nvim/nvim-java/` (versions from nvim-java defaults); local dev tooling only — no code egress |
 | (baseline) | firenvim.lua | flagged then reviewed | Browser bridge egress risk — assessed low (loopback) |
 | Phase 4 | Vineflower 1.11.1 (local jar) | **Added** | Local offline-capable decompiler in `~/.local/share/nvim/decompilers/`; used only on trusted artifacts. Hash: see file on disk. |
+## 8. Lockfile review (Phase 5)
+- Review `lazy-lock.json` on updates; prefer pinned commits/tags.
+- Remove unused plugins via `:Lazy clean` only after review.
+- No telemetry/cloud plugins added. Java tooling pinned (nvim-java deps, spring-boot.nvim pinned).
