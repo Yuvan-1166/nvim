@@ -115,7 +115,7 @@ Acceptance: chosen plugin added under `lua/yuvan/plugins/`, lazy-loaded, `<leade
 ---
 
 ## Phase 7 — DX polish & maintenance
-**Status: Not started**
+**Status: In progress**
 
 - Lint Lua (`luacheck`/`selene`) + CI-style `stylua --check` gate.
 - Git UX: `gitsigns.nvim` (+ optional `lazygit.nvim`).

@@ -89,10 +89,11 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 ## Phase 7 — DX polish & maintenance  `[ ]`
 
 - [ ] Lua linting (`luacheck`/`selene`) + `stylua --check` gate
-- [ ] Add `gitsigns.nvim` (+ optional `lazygit.nvim`)
-- [ ] Replace `neodev.nvim`; migrate to `vim.lsp.config`/`vim.lsp.enable`; drop `vim.deprecate` stub
-- [ ] lualine theme → `auto` (or cyberdream match)
-- [ ] Consolidate which-key groups; remove dead commented code
+- [x] Add `gitsigns.nvim`
+- [x] Replace `neodev.nvim`; migrate to `vim.lsp.config`/`vim.lsp.enable`
+- [x] lualine theme → `auto`
+- [x] Consolidate which-key groups
+- [ ] Remove dead/commented code
 - [ ] Startup perf check (`nvim --startuptime`)
 
 ---
