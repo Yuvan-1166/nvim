@@ -71,7 +71,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 - [ ] Secrets scanning: `gitleaks`/`git-secrets` (opt-in pre-commit)
 - [ ] Dependency scanning: OWASP Dependency-Check / Trivy / Grype
 - [ ] SAST: SpotBugs + FindSecBugs / Semgrep
-- [ ] Document mirror/proxy config for Maven/Gradle/mason (air-gapped)
+- [x] Document mirror/proxy config for Maven/Gradle/mason (air-gapped)
 - [ ] Re-review every plugin in lockfile; remove anything untrusted
 
 ---

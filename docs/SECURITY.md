@@ -18,7 +18,7 @@ Companion docs: [`PLAN.md`](PLAN.md) (Phase 5), [`JAVA.md`](JAVA.md) (Java tooli
 | **Vulnerable code (Java)** | Security bugs in source (injection, unsafe deserialization, etc.). | SpotBugs + FindSecBugs, Semgrep, SonarLint, CodeQL if available. |
 | **Secrets in repo/config** | API keys, tokens, keystore passwords committed. | `gitleaks`/`git-secrets` pre-commit; never store secrets in config; `.gitignore`. |
 | **Auto-execution of untrusted code** | Neovim `exrc`/modeline/plugins executing code from the opened project. | Disable `exrc`; restrict modelines; review `.nvim.lua` usage. |
-| **Outbound in CI/build** | Build tools phoning home or pulling unpinned artifacts. | Mirror/proxy Maven/Gradle; pin versions; audit `settings.xml`/`init.gradle`. |
+| **Outbound in CI/build** | Build tools phoning home or pulling unpinned artifacts. | Mirror/proxy Maven/Gradle; pin versions; audit `settings.xml`/`init.gradle`. See §6.2. |
 | **Compromised terminal tools** | Decompilers/CLIs from untrusted sources. | Download from official releases, verify hashes, keep in a pinned dir. |
 
 ---
@@ -75,6 +75,17 @@ Install and wire these in Phase 5 (see `JAVA.md` §9):
 
 - Never commit tokens, API keys, keystores, `application-*.properties` with credentials, or `.env`.
 - Consider `gitleaks` pre-commit (opt-in). Maven/Gradle mirror/proxy can be documented here for air-gapped setups.
+
+### 6.1 gitleaks (opt-in)
+```bash
+gitleaks detect --no-banner --redact
+```
+Pre-commit example (if adopted): add to `.pre-commit-config.yaml` with gitleaks hook.
+
+### 6.2 Maven/Gradle mirror/proxy (air-gapped)
+- **Maven**: `~/.m2/settings.xml` with `<mirror>` pointing to internal repo; use `-o` or mirrorOf `*`.
+- **Gradle**: `~/.gradle/init.gradle` or `gradle.properties` with repository mirrors; disable remote lookups.
+- **Mason**: ensure registry/mirrors configured per org policy. Document used mirrors here (no secrets).
 - Use a secret manager or environment variables; for Spring, externalize secrets (Vault/env) and keep only `application-*.example.yml` in git.
 - Add pre-commit secret scanning: `gitleaks detect` or `git-secrets` (opt-in, documented so it doesn't block unrelated work).
 - Rotate anything that was ever committed.
