@@ -67,7 +67,7 @@ nvim/
             └── lspconfig.lua     # LSP config + keymaps + per-server setup
 ```
 
-> **Phase 0:** cleanup/removals. **Phase 1:** Java LSP/JDKs (nvim-java/jdtls, 8/11/17/21/25). **Phase 2:** Java debugging & testing (nvim-dap, java-test). **Phase 3 (in progress):** build/tasks (overseer.nvim) + Spring Boot helpers. **Phase 4 (in progress):** JAR/decompile (jarvis.nvim + decomp-nvim + Vineflower). Lockfile: **48** plugins. See `docs/IMPLEMENTED.md`.
+> **Phase 0:** cleanup/removals. **Phase 1:** Java LSP/JDKs (nvim-java/jdtls, 8/11/17/21/25). **Phase 2:** Java debugging & testing (nvim-dap, java-test). **Phase 3 (in progress):** build/tasks (overseer.nvim) + Spring Boot (STS4 + Initializr). **Phase 4 (in progress):** JAR/decompile (jarvis.nvim + decomp-nvim + Vineflower). Lockfile: **49** plugins. See `docs/IMPLEMENTED.md`.
 
 ## Quick Start
 

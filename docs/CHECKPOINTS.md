@@ -48,8 +48,8 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 ## Phase 3 — Java build / Spring Boot / Servlet  `[ ]`
 
 - [x] Maven/Gradle task runner (`overseer.nvim` + user templates)
-- [x] `JavaHello/spring-boot.nvim` (STS4) present + helpers `<leader>jsb/<leader>jsa`
-- [ ] Spring Initializr scaffolding (spring CLI / springboot-nvim)
+- [x] `JavaHello/spring-boot.nvim` (STS4) present + helpers `<leader>jsb/jsa`
+- [x] Spring Initializr scaffolding (`elmcgill/springboot-nvim`, `<leader>si`)
 - [ ] Servlet container run + debug-attach config (Tomcat/Jetty)
 - [ ] Verify: run/debug a Spring Boot app; complete `application.yml`; run a Servlet
 

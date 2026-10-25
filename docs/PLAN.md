@@ -62,8 +62,8 @@ Acceptance: verified — breakpoint hit, step/frame resolved, program exits clea
 **Status: In progress**
 
 - Maven + Gradle project integration via `stevearc/overseer.nvim` with user templates + `<leader>o*` tasks.
-- **Spring Boot**: `JavaHello/spring-boot.nvim` (STS4 language server, pinned) already present; added helpers `<leader>jsb/<leader>jsa` (`SpringBootDash/App`).
-- Spring Initializr project scaffolding (`spring init` CLI or `elmcgill/springboot-nvim`).
+- **Spring Boot**: `JavaHello/spring-boot.nvim` (STS4 language server, pinned) already present; added helpers `<leader>jsb/jsa` and STS actions.
+- Spring Initializr scaffolding via `elmcgill/springboot-nvim` (`<leader>si` / `:SpringBootCreate`).
 - Servlet/Tomcat/Jetty run + remote debug (attach DAP), container configuration.
 
 Acceptance: run/debug a Spring Boot app, navigate properties, run a Servlet, attach debugger to a container.

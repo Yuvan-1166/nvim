@@ -107,11 +107,21 @@ return {
 
     -- Spring Boot helpers
     map("n", "<leader>jsb", function()
-      pcall(vim.cmd, "SpringBootDash")
-    end, { desc = "Spring Boot: dashboard" })
+      local ok, sb = pcall(require, "spring_boot")
+      if ok and sb.boot_ls then
+        pcall(sb.boot_ls)
+      else
+        pcall(vim.cmd, "SpringBootDash")
+      end
+    end, { desc = "Spring Boot: STS actions" })
     map("n", "<leader>jsa", function()
       pcall(vim.cmd, "SpringBootApp")
     end, { desc = "Spring Boot: apps" })
+
+    -- Spring Initializr
+    map("n", "<leader>si", function()
+      pcall(vim.cmd, "SpringBootCreate")
+    end, { desc = "Spring: initializr create" })
 
     -- Decompile
     map("n", "<leader>xd", function()

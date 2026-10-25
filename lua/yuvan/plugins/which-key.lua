@@ -10,6 +10,7 @@ return {
       { "<leader>g", group = "debug" },
       { "<leader>j", group = "java" },
       { "<leader>o", group = "tasks" },
+      { "<leader>s", group = "spring" },
       { "<leader>x", group = "decompile" },
     },
   },
