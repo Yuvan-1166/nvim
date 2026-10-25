@@ -92,7 +92,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 - [x] Replace `neodev.nvim`; migrate to `vim.lsp.config`/`vim.lsp.enable`
 - [x] lualine theme → `auto`
 - [x] Consolidate which-key groups
-- [ ] Remove dead/commented code
+- [x] Remove dead/commented code
 - [ ] Startup perf check (`nvim --startuptime`)
 
 ---
