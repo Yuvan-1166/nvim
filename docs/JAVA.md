@@ -20,6 +20,7 @@ Companion docs: [`PLAN.md`](PLAN.md) (phases), [`SECURITY.md`](SECURITY.md) (sca
 | Debugger | **`nvim-dap` + `nvim-dap-ui`** (`lua/yuvan/plugins/dap.lua`) — Phase 2, Java launch/attach + tests ✓ |
 | Tasks/Build | **`overseer.nvim`** + Maven/Gradle templates — Phase 3 (`<leader>oo/ot/oa/oq`) |
 | Spring Boot | **`JavaHello/spring-boot.nvim`** (STS4, pinned) — Phase 3 helpers `<leader>jsb/jsa` |
+| JAR/Decompile | **`jarvis.nvim`**, **`decomp-nvim`** + Vineflower — Phase 4 (`<leader>xd`) |
 
 Notes:
 - `eclipse.jdt.ls` (jdtls) **itself runs on Java 21**, but it can compile/analyze projects targeting **Java ≥ 8** by configuring `java.configuration.runtimes`.

@@ -57,9 +57,10 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ## Phase 4 — JAR handling & decompilation  `[ ]`
 
-- [ ] Choose decompiler: CFR and/or Vineflower
-- [ ] Add decompiler JARs (pinned) + record hashes in `SECURITY.md`
-- [ ] Add decompile command/keymap (`jdecomp.nvim` or custom `:JavaDecompile`)
+- [x] Choose decompiler: Vineflower
+- [x] Add decompiler JARs (pinned) + record hashes in `SECURITY.md`
+- [x] Add decompile plugin + keymap (`<leader>xd` / `:Decomp`)
+- [x] JAR inspection (`jarvis.nvim`)
 - [ ] Configure `referencedLibraries` for external JARs
 - [ ] Verify: decompile a `.class`/`.jar` into a scratch buffer; LSP disabled on it
 

@@ -112,5 +112,10 @@ return {
     map("n", "<leader>jsa", function()
       pcall(vim.cmd, "SpringBootApp")
     end, { desc = "Spring Boot: apps" })
+
+    -- Decompile
+    map("n", "<leader>xd", function()
+      pcall(vim.cmd, "Decomp")
+    end, { desc = "Decompile: class/JAR" })
   end,
 }
