@@ -74,6 +74,7 @@ Install and wire these in Phase 5 (see `JAVA.md` §9):
 ## 6. Secrets management
 
 - Never commit tokens, API keys, keystores, `application-*.properties` with credentials, or `.env`.
+- Consider `gitleaks` pre-commit (opt-in). Maven/Gradle mirror/proxy can be documented here for air-gapped setups.
 - Use a secret manager or environment variables; for Spring, externalize secrets (Vault/env) and keep only `application-*.example.yml` in git.
 - Add pre-commit secret scanning: `gitleaks detect` or `git-secrets` (opt-in, documented so it doesn't block unrelated work).
 - Rotate anything that was ever committed.
