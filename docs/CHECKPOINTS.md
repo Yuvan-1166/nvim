@@ -59,8 +59,8 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 - [x] Choose decompiler: Vineflower
 - [x] Add decompiler JARs (pinned) + record hashes in `SECURITY.md`
-- [ ] Add decompile workflow (external java + Vineflower / custom command)
-- [ ] JAR inspection (custom or plugin)
+- [x] Add decompile workflow (external java + Vineflower)
+- [x] JAR inspection (basic)
 - [ ] Verify: decompile a `.class`/`.jar` into a scratch buffer; LSP disabled on it
 
 ---
