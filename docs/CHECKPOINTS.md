@@ -50,7 +50,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 - [x] Maven/Gradle task runner (`overseer.nvim` + user templates)
 - [x] `JavaHello/spring-boot.nvim` (STS4) present + helpers `<leader>jsb/jsa`
 - [x] Spring Initializr scaffolding (`elmcgill/springboot-nvim`, `<leader>si`)
-- [ ] Servlet container run + debug-attach config (Tomcat/Jetty)
+- [x] Servlet/Tomcat/Jetty debug-attach (`<leader>ga` JDWP port prompt)
 - [ ] Verify: run/debug a Spring Boot app; complete `application.yml`; run a Servlet
 
 ---

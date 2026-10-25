@@ -22,5 +22,6 @@ return {
     map("n", "<leader>ot", "<cmd>OverseerToggle<CR>", { desc = "Tasks: toggle list" })
     map("n", "<leader>oa", "<cmd>OverseerTaskAction<CR>", { desc = "Tasks: action" })
     map("n", "<leader>oq", "<cmd>OverseerQuickAction<CR>", { desc = "Tasks: quick action" })
+    map("n", "<leader>tm", "<cmd>OverseerRun<CR>", { desc = "Tasks: Maven/Gradle run" })
   end,
 }

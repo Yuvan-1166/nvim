@@ -18,8 +18,9 @@ Companion docs: [`PLAN.md`](PLAN.md) (phases), [`SECURITY.md`](SECURITY.md) (sca
 | Gradle | `8.7` |
 | Java LSP | **`nvim-java` + jdtls** (`lua/yuvan/plugins/lsp/java.lua`) — Phase 1, attached ✓ |
 | Debugger | **`nvim-dap` + `nvim-dap-ui`** (`lua/yuvan/plugins/dap.lua`) — Phase 2, Java launch/attach + tests ✓ |
-| Tasks/Build | **`overseer.nvim`** + Maven/Gradle templates — Phase 3 (`<leader>oo/ot/oa/oq`) |
+| Tasks/Build | **`overseer.nvim`** + Maven/Gradle templates — Phase 3 (`<leader>oo/ot/oa/oq`, `<leader>tm`) |
 | Spring Boot | **`JavaHello/spring-boot.nvim`** (STS4, pinned) + **`springboot-nvim`** — Phase 3 helpers `<leader>jsb/jsa/si` |
+| Servlet/Attach | JDWP attach `<leader>ga` (custom port) — Phase 3 |
 | JAR/Decompile | **`jarvis.nvim`**, **`decomp-nvim`** + Vineflower — Phase 4 (`<leader>xd`) |
 
 Notes:
