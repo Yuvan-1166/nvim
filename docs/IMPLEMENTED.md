@@ -74,7 +74,7 @@ Tools: prettier, stylua, isort, clang-format, prettierd, golangci-lint, google-j
 | Date | Change | Files |
 |---|---|---|
 | Phase 1 | **Java foundation:** new `plugins/lsp/java.lua` (nvim-java + spring-boot.nvim/nui.nvim/nvim-dap), 5 JDK runtimes in jdtls (21 default), `google-java-format` in conform + mason, treesitter `java/xml/properties/groovy`. jdtls attach + diagnostics + format verified | new: lsp/java.lua; edited: mason.lua, formatting.lua, treesitter.lua |
-| Phase 7 | **DX groups:** added which-key groups for debug/git/java/tasks/spring/tomcat/decompile; added `gitsigns.nvim` with hunk keymaps. | plugins/gitsigns.lua, plugins/which-key.lua |
+| Phase 7 | **DX groups:** added which-key groups for debug/git/java/tasks/spring/tomcat; added `gitsigns.nvim` + `lazygit.nvim` (`<leader>gg`). | plugins/gitsigns.lua, plugins/lazygit.lua, plugins/which-key.lua |
 | Phase 5 (in progress) | **Runtime hardening:** `exrc` off, `modelines=0`, `secure`, shada tightened in `core/options.lua`. | core/options.lua |
 | Phase 4 | **JAR/decompile:** pinned Vineflower in `~/.local/share/nvim/decompilers/` (sha256 recorded). | ~/.local/share/nvim/decompilers/ |
 | Phase 3 | **Build/tasks + Spring Boot:** new `plugins/overseer.lua`, user templates `overseer/template/user/{maven,gradle}.lua`, `<leader>o*` tasks; `plugins/spring-init.lua` (`springboot-nvim`), `<leader>jsb/jsa/si`; `plugins/attach-debug.lua` JDWP attach `<leader>ga`; `<leader>o/s/t` groups in which-key. | overseer.lua, overseer/template/*, spring-init.lua, attach-debug.lua, lsp/java.lua, which-key.lua |

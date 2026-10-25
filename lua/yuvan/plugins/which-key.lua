@@ -8,6 +8,7 @@ return {
   opts = {
     spec = {
       { "<leader>g", group = "debug" },
+      { "<leader>gg", group = "git" },
       { "<leader>h", group = "git" },
       { "<leader>j", group = "java" },
       { "<leader>o", group = "tasks" },
