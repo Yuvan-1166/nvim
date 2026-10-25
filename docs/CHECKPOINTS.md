@@ -93,7 +93,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 - [x] lualine theme → `auto`
 - [x] Consolidate which-key groups
 - [x] Remove dead/commented code
-- [ ] Startup perf check (`nvim --startuptime`)
+- [x] Startup perf check (`nvim --startuptime`)
 
 ---
 
