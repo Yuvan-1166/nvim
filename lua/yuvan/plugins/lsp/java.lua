@@ -123,9 +123,5 @@ return {
       pcall(vim.cmd, "SpringBootCreate")
     end, { desc = "Spring: initializr create" })
 
-    -- Decompile
-    map("n", "<leader>xd", function()
-      pcall(vim.cmd, "Decomp")
-    end, { desc = "Decompile: class/JAR" })
   end,
 }

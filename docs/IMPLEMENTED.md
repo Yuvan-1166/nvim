@@ -25,7 +25,7 @@ Baseline snapshot of the config as of the initial documentation pass (2025). Fut
 
 **LSP/Completion:** mason, mason-lspconfig, mason-tool-installer, nvim-lspconfig (wired via `vim.lsp.config`/`vim.lsp.enable`), nvim-lsp-file-operations, cmp-nvim-lsp, nvim-cmp (+buffer/path/luasnip/lspkind/friendly-snippets), trouble.
 
-**Java:** nvim-java (jdtls driver), spring-boot.nvim (STS4, pinned commit), springboot-nvim (Initializr, Phase 3), nui.nvim, nvim-dap, nvim-dap-ui, nvim-dap-virtual-text, nvim-nio (Phase 2); **overseer.nvim** (Phase 3); **jarvis.nvim**, **decomp-nvim** (Phase 4).
+**Java:** nvim-java (jdtls driver), spring-boot.nvim (STS4, pinned commit), springboot-nvim (Initializr, Phase 3), nui.nvim, nvim-dap, nvim-dap-ui, nvim-dap-virtual-text, nvim-nio (Phase 2); **overseer.nvim** (Phase 3). Vineflower pinned for decompile (Phase 4).
 
 **Formatting:** conform.nvim (prettier/prettierd, stylua, isort, clang-format, gofmt).
 
@@ -33,7 +33,7 @@ Baseline snapshot of the config as of the initial documentation pass (2025). Fut
 
 **FireNvim:** kept after security review (local loopback, low risk). See `SECURITY.md`.
 
-**Removed in Phase 0:** copilot.vim + CopilotChat.nvim, jupyter stack (jupytext, iron.nvim, NotebookNavigator, mini.comment), cord.nvim, vim-tmux-navigator, neodev.nvim. Lockfile: **49** entries (47 → 38 after Phase 0 → 42 after Phase 1 → 45 after Phase 2 → 46 after Phase 3 → 49 after Phase 4).
+**Removed in Phase 0:** copilot.vim + CopilotChat.nvim, jupyter stack (jupytext, iron.nvim, NotebookNavigator, mini.comment), cord.nvim, vim-tmux-navigator, neodev.nvim. Lockfile: **47** entries (47 → 38 after Phase 0 → 42 after Phase 1 → 45 after Phase 2 → 46 after Phase 3 → 47).
 
 ## LSP servers configured (via `lsp/lspconfig.lua`)
 
@@ -76,7 +76,7 @@ Tools: prettier, stylua, isort, clang-format, prettierd, golangci-lint, google-j
 | Phase 1 | **Java foundation:** new `plugins/lsp/java.lua` (nvim-java + spring-boot.nvim/nui.nvim/nvim-dap), 5 JDK runtimes in jdtls (21 default), `google-java-format` in conform + mason, treesitter `java/xml/properties/groovy`. jdtls attach + diagnostics + format verified | new: lsp/java.lua; edited: mason.lua, formatting.lua, treesitter.lua |
 | Phase 7 | **DX groups:** added which-key groups for debug/git/java/tasks/spring/tomcat/decompile; added `gitsigns.nvim` with hunk keymaps. | plugins/gitsigns.lua, plugins/which-key.lua |
 | Phase 5 (in progress) | **Runtime hardening:** `exrc` off, `modelines=0`, `secure`, shada tightened in `core/options.lua`. | core/options.lua |
-| Phase 4 | **JAR/decompile:** new `plugins/jar.lua` (`jarvis.nvim`), `plugins/decompile.lua` (`decomp-nvim`), pinned Vineflower in `~/.local/share/nvim/decompilers/`, `<leader>xd` decompile, `<leader>x` group in which-key. | jar.lua, decompile.lua, lsp/java.lua, which-key.lua |
+| Phase 4 | **JAR/decompile:** pinned Vineflower in `~/.local/share/nvim/decompilers/` (sha256 recorded). | ~/.local/share/nvim/decompilers/ |
 | Phase 3 | **Build/tasks + Spring Boot:** new `plugins/overseer.lua`, user templates `overseer/template/user/{maven,gradle}.lua`, `<leader>o*` tasks; `plugins/spring-init.lua` (`springboot-nvim`), `<leader>jsb/jsa/si`; `plugins/attach-debug.lua` JDWP attach `<leader>ga`; `<leader>o/s/t` groups in which-key. | overseer.lua, overseer/template/*, spring-init.lua, attach-debug.lua, lsp/java.lua, which-key.lua |
 | Phase 2 | **Debugging & testing:** new `plugins/dap.lua` (`nvim-dap` + UI + virtual text + nvim-nio), attach config for JDWP :5005, DAP keymaps under `<leader>g`; expanded Java keymaps (`<leader>jr/js/jl/jp/jV/jc/jv/jo/jt/jd/jm/jM/jT/jR`) in `plugins/lsp/java.lua`. Verified breakpoint → frame resolution → continue/exit; Java test run/debug via nvim-java. | dap.lua, lsp/java.lua, which-key.lua |
 | Phase 1 | **JDKs installed** via SDKMAN (Temurin 8 / 11 / 17 / 21 / 25) | `~/.sdkman/candidates/java/` |

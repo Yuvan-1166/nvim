@@ -73,9 +73,9 @@ Acceptance: run/debug a Spring Boot app, navigate properties, run a Servlet, att
 ## Phase 4 — JAR handling & decompilation
 **Status: In progress**
 
-- Inspect/list JAR contents; open class sources (`jarvis.nvim`).
+- Inspect/list JAR contents; open class sources.
 - Decompilers: **Vineflower** pinned in `~/.local/share/nvim/decompilers/` (hash recorded in `docs/SECURITY.md`).
-- Wired `Michal-Atlas/decomp-nvim` with `<leader>xd` / `:Decomp`.
+- Add decompile workflow (custom command using `java -jar vineflower.jar` or plugin) + keymap.
 - Attach sources for libraries (Maven `sources` / `javap` for bytecode via jdtls).
 - `referencedLibraries` config for external JARs in projects.
 

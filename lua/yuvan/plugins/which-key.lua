@@ -13,7 +13,6 @@ return {
       { "<leader>o", group = "tasks" },
       { "<leader>s", group = "spring" },
       { "<leader>t", group = "tomcat" },
-      { "<leader>x", group = "decompile" },
     },
   },
 }
