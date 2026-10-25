@@ -68,7 +68,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ## Phase 5 — Security hardening (office)  `[ ]`
 
-- [ ] Runtime hardening: `exrc` off, modeline hygiene, shada review
+- [x] Runtime hardening: `exrc` off, modeline hygiene (0), shada review
 - [ ] Secrets scanning: `gitleaks`/`git-secrets` (opt-in pre-commit)
 - [ ] Dependency scanning: OWASP Dependency-Check / Trivy / Grype
 - [ ] SAST: SpotBugs + FindSecBugs / Semgrep

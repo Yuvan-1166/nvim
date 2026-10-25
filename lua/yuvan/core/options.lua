@@ -42,3 +42,9 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+-- security hardening
+vim.o.exrc = false
+vim.o.secure = true
+vim.o.modelines = 0
+vim.o.shada = "'100,<50,s10,h"

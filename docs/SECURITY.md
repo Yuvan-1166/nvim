@@ -39,7 +39,7 @@ Companion docs: [`PLAN.md`](PLAN.md) (Phase 5), [`JAVA.md`](JAVA.md) (Java tooli
 
 ## 3. Neovim runtime hardening checklist
 
-- [ ] Ensure `exrc` is **disabled** (`vim.o.exrc = false`), so Neovim does not auto-run project-local config.
+- [x] Ensure `exrc` is **disabled** (`vim.o.exrc = false`), so Neovim does not auto-run project-local config. (done: `lua/yuvan/core/options.lua`)
 - [ ] Review modeline handling; keep `modeline` enabled but ensure untrusted files aren't auto-opened with plugins attached.
 - [ ] Keep `shada`/undo history on a local, non-shared path; don't sync secrets in shada.
 - [ ] Avoid `:!` shell commands built from untrusted file paths (current `:Comp` uses fixed path — keep it fixed).
