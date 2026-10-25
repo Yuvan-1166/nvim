@@ -104,5 +104,13 @@ return {
     map("n", "<leader>jv", function()
       vim.cmd("JavaSettingsChangeRuntime")
     end, { desc = "Java: change JDK runtime" })
+
+    -- Spring Boot helpers
+    map("n", "<leader>jsb", function()
+      pcall(vim.cmd, "SpringBootDash")
+    end, { desc = "Spring Boot: dashboard" })
+    map("n", "<leader>jsa", function()
+      pcall(vim.cmd, "SpringBootApp")
+    end, { desc = "Spring Boot: apps" })
   end,
 }

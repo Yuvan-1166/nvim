@@ -9,6 +9,7 @@ return {
     spec = {
       { "<leader>g", group = "debug" },
       { "<leader>j", group = "java" },
+      { "<leader>o", group = "tasks" },
     },
   },
 }

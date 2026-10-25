@@ -59,10 +59,10 @@ Acceptance: verified — breakpoint hit, step/frame resolved, program exits clea
 ---
 
 ## Phase 3 — Java build / Spring Boot / Servlet
-**Status: Not started**
+**Status: In progress**
 
-- Maven + Gradle project integration (build/compile/run from Neovim; `overseer.nvim` or direct `:make` / custom commands).
-- **Spring Boot**: `JavaHello/spring-boot.nvim` (STS4 language server) for `application.properties`/`.yml` completion, bean/endpoint search, code actions.
+- Maven + Gradle project integration via `stevearc/overseer.nvim` with user templates + `<leader>o*` tasks.
+- **Spring Boot**: `JavaHello/spring-boot.nvim` (STS4 language server, pinned) already present; added helpers `<leader>jsb/<leader>jsa` (`SpringBootDash/App`).
 - Spring Initializr project scaffolding (`spring init` CLI or `elmcgill/springboot-nvim`).
 - Servlet/Tomcat/Jetty run + remote debug (attach DAP), container configuration.
 
