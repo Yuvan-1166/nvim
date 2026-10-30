@@ -24,6 +24,12 @@ return {
             end
             vim.cmd("edit " .. vim.fn.fnameescape(out))
             vim.bo.filetype = "java"
+            -- avoid LSP attaching to temp decompile buffers
+            vim.b[0].decompiled = true
+            local clients = vim.lsp.get_clients({ bufnr = 0 })
+            for _, c in ipairs(clients) do
+              pcall(vim.lsp.buf_detach_client, 0, c.id)
+            end
           end)
         end,
       }):start()
