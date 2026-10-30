@@ -71,7 +71,7 @@ Acceptance: run/debug a Spring Boot app, navigate properties, run a Servlet, att
 ---
 
 ## Phase 4 — JAR handling & decompilation
-**Status: In progress**
+**Status: Done**
 
 - Inspect/list JAR contents; open class sources.
 - Decompilers: **Vineflower** pinned in `~/.local/share/nvim/decompilers/` (hash recorded in `docs/SECURITY.md`).
