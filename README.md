@@ -24,5 +24,3 @@ Modular, lazy-loaded Neovim config for Java-first development with security hard
 ## Docs
 
 - [PLAN](docs/PLAN.md) | [CHECKPOINTS](docs/CHECKPOINTS.md) | [IMPLEMENTED](docs/IMPLEMENTED.md) | [JAVA](docs/JAVA.md) | [SECURITY](docs/SECURITY.md)
-
-Phases 0-7 complete. Claude integration deferred.
