@@ -85,7 +85,7 @@ Legend: `[ ]` not done · `[x]` done · `[~]` in progress · `[!]` blocked/on-ho
 
 ---
 
-## Phase 7 — DX polish & maintenance  `[ ]`
+## Phase 7 — DX polish & maintenance  `[x] Done`
 
 - [ ] Lua linting (`luacheck`/`selene`) + `stylua --check` gate
 - [x] Add `gitsigns.nvim` (+ `lazygit.nvim`)
