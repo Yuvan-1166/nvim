@@ -123,5 +123,14 @@ return {
       pcall(vim.cmd, "SpringBootCreate")
     end, { desc = "Spring: initializr create" })
 
+    -- safer runtime switch
+    map("n", "<leader>jv", function()
+      local clients = vim.lsp.get_clients({ name = "jdtls" })
+      if #clients == 0 then
+        vim.notify("jdtls not attached. Open a Java file in a project first.", vim.log.levels.WARN)
+        return
+      end
+      pcall(vim.cmd, "JavaSettingsChangeRuntime")
+    end, { desc = "Java: change JDK runtime" })
   end,
 }
